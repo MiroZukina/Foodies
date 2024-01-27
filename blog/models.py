@@ -8,13 +8,13 @@ from django.db.models.signals import post_save
 
 class Post(models.Model):
     user = models.ForeignKey(
-        User, related_name="post", 
+        User, related_name="posts", 
         on_delete=models.DO_NOTHING
     )
     body = models.CharField(max_length=200)
-    post_image = models.ImageField(null=True, blank=True, upload_to="post_images/")
+    post_image_url = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, related_name="post_like", blank=True)
+    likes = models.ManyToManyField(User, related_name="post_likes", blank=True)
 
     def number_of_likes(self):
         return self.likes.count()
@@ -24,7 +24,7 @@ class Post(models.Model):
             f"{self.user}"
             f"({self.created_at:%Y-%m-%d %H:%M}):"
             f"{self.body}..."
-        ) 
+        )
 
 class Comment(models.Model):
     user = models.ForeignKey(
@@ -41,7 +41,6 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.user} on {self.post} at {self.created_at:%Y-%m-%d %H:%M}"
 
-
 # Create A User Profile Model
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -49,7 +48,7 @@ class Profile(models.Model):
         related_name="followed_by",
         symmetrical=False,
         blank=True)
-    profile_image = models.ImageField(null=True, blank=True, upload_to="profile_images/")
+    profile_image_url = models.URLField(null=True, blank=True)
     date_modified = models.DateTimeField(auto_now=True)
     profile_bio = models.CharField(null=True, blank=True, max_length=500)
     facebook_link = models.CharField(null=True, blank=True, max_length=100)

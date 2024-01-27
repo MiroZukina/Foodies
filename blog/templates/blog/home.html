@@ -10,20 +10,20 @@
             <div class="container">
               <div class="row">
                 <div class="col-1">
-                  {% if post.user.profile.profile_image %}
-                    <img src="{{ post.user.profile.profile_image.url }}" 
-                         width="50" height="50" class="rounded-circle" 
-                         alt="{{ post.user.username }}'s profile image">
-                  {% else %}
-                    <img src="{% static 'images/default.jpg' %}"  
-                         width="50" height="50" class="rounded-circle" alt="Profile image">
-                  {% endif %}<br/>
+                  {% if post.user.profile.profile_image_url %}
+                  <img src="{{ post.user.profile.profile_image_url }}" 
+                       width="50" height="50" class="rounded-circle" 
+                       alt="{{ post.user.username }}'s profile image">
+                {% else %}
+                  <img src="{% static 'images/default.jpg' %}"  
+                       width="50" height="50" class="rounded-circle" alt="Profile image">
+                {% endif %}<br/>
                 </div>
                 <br/>
-                {% if post.post_image %}
-                  <img src="{{ post.post_image.url }}" 
-                       width="50" height="50" class="img-fluid"
-                       alt="{{ post.post_image.url }}'s post image">
+                {% if post.post_image_url %}
+                <img src="{{ post.post_image_url }}" 
+                width="50" height="50" class="img-fluid"
+                alt="{{ post.post_image_url }}'s post image">
                 {% endif %}
                 <div class="col-11">
                   {{ post.body }}<br/>

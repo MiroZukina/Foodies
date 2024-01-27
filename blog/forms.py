@@ -5,17 +5,17 @@ from django.contrib.auth.models import User
 
 
 class ProfilePicForm(forms.ModelForm):
-    profile_image = forms.ImageField(label="Profile Picture")
+    profile_image_url = forms.URLField(label="Profile Image URL")
     profile_bio = forms.CharField(label="Profile Bio", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Profile Bio' }))
     homepage_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Website Link'}))
     facebook_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Facebook Link'}))
-    instagram_link =forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Instangram Link'}))
+    instagram_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Instagram Link'}))
     linkedin_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Linkedin Link'}))
 
     class Meta: 
         model = Profile
-        fields = ('profile_image','homepage_link','profile_bio', 'facebook_link', 'instagram_link', 'linkedin_link', )
-from .models import Post
+        fields = ('profile_image_url', 'homepage_link', 'profile_bio', 'facebook_link', 'instagram_link', 'linkedin_link')
+
 
 class PostForm(forms.ModelForm):
     body = forms.CharField(
@@ -30,12 +30,11 @@ class PostForm(forms.ModelForm):
         label="",
     )
 
-    post_image = forms.ImageField(label="Post Image", required=False, widget=forms.ClearableFileInput(attrs={'capture': 'camera'}))
-
+    post_image_url = forms.URLField(label="Post Image URL", required=False, widget=forms.TextInput(attrs={'placeholder': 'Enter image URL'}))
 
     class Meta:
         model = Post
-        fields = ("body", "post_image")
+        fields = ("body", "post_image_url")
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(

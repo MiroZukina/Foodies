@@ -32,7 +32,7 @@ def home(request):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.user = request.user
-            new_comment.post = posts[0]  # Set the post field (you need to adjust this)
+            new_comment.post = posts[0]  
             new_comment.save()
             messages.success(request, "Your Comment Has Been Posted")
             return redirect('blog-home')
@@ -98,7 +98,7 @@ def profile(request, pk):
             if comment_form.is_valid():
                 new_comment = comment_form.save(commit=False)
                 new_comment.user = request.user
-                new_comment.post = posts[0]  # You might want to adjust this logic based on how you're displaying posts
+                new_comment.post = posts[0]  
                 new_comment.save()
                 messages.success(request, "Your Comment Has Been Posted")
                 return redirect('profile', pk=pk)
