@@ -9,27 +9,22 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
-from pathlib import Path
-from dotenv import load_dotenv
-import os
 import dj_database_url
+from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-import environ
 
 
-env= environ.Env()
-environ.Env.read_env()
 
-load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =os.environ.get("SECRET_KEY")
+SECRET_KEY ='django-insecure-_mx_z%wr0r20q=gi^upogu_=s#okwigi+a=g)z8+!yoooy+gw%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,14 +89,20 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
-'''
+}'''
+
 #database_url = os.environ.get("DATABESE_URL")
+
 DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
-
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'database_yoln',
+        'USER': 'database_yoln_user',
+        'PASSWORD': 'Hu4bdyDQVDQHcM5dL00nabu5Aq2dWTrO',
+        'HOST': 'dpg-cme5e2mn7f5s739f50og-a.oregon-postgres.render.com',
+        'PORT': '5432',
+    }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -155,4 +156,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER') # Login email address, Stored as an environment varaible
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS') #App Password set from gmail, Stored as an environment varaible
-
