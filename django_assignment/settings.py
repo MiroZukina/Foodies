@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'database_yoln',
         'USER': 'database_yoln_user',
         'PASSWORD': 'Hu4bdyDQVDQHcM5dL00nabu5Aq2dWTrO',
-        'HOST': 'dpg-cme5e2mn7f5s739f50og-a.oregon-postgres.render.com',
+        'HOST': 'dpg-cme5e2mn7f5s739f50og-a',
         'PORT': '5432',
     }
 }
