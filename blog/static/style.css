@@ -1,0 +1,181 @@
+/* Header/Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40; /* Adjust background color */
+    color: #ffffff; /* Adjust text color */
+    padding: 15px 30px;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #ffffff; /* Adjust logo color */
+}
+
+.toggle-button {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff; /* Adjust toggle button color */
+    margin: 5px 0;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-li {
+    margin: 0 15px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #ffffff; /* Adjust link color */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #343a40; /* Adjust dropdown background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    display: block;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #ffffff; /* Adjust dropdown item color */
+}
+
+/* Media Query for Responsive Design */
+@media screen and (max-width: 768px) {
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #343a40; /* Adjust mobile menu background color */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.active .navbar-links {
+        display: flex;
+    }
+
+    .toggle-button {
+        display: block;
+    }
+
+    .bar {
+        background-color: #ffffff; /* Adjust toggle button color */
+    }
+}
+
+
+.active .toggle-button span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.active .toggle-button span:nth-child(2) {
+    opacity: 0;
+}
+
+.active .toggle-button span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.navbar-links.active {
+    display: block;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #343a40; 
+    color: #ffffff; 
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-text {
+    margin-bottom: 10px;
+}
+
+.footer-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-iconTop {
+    font-size: 24px;
+}
+
+.footer-iconTop a {
+    text-decoration: none;
+    color: #ffffff; 
+}
+
+/* Add hover effect to the icon */
+.footer-iconTop a:hover {
+    color: #f8f9fa; 
+}
+
+/* Add some space around the icon for better visibility */
+.footer-iconTop a i {
+    margin: 0 5px;
+}
+
+
+
+
+footer{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem 9%;
+    background:  #38536d ;
+}
+
+.footer-text{
+    font-size: 1.6rem;
+    color: white;
+}
+
+.footer-iconTop a{
+    position: relative;
+    display: inline-flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: gray;
+    border: .2rem solid black;
+    border-radius: .6rem;
+   
+}
