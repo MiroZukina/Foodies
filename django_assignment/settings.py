@@ -35,7 +35,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 #ALLOWED_HOSTS  = []
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.environ.get('RENDER_HOSTNAME', '')]
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.environ.get('RENDER_HOSTNAME', '')]
 
 
 # Application definition
