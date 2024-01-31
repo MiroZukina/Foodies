@@ -32,6 +32,11 @@
                       <small class="text-muted">
                         ({{ post.created_at }}) By @{{ post.user.username }}
                         - {{ post.number_of_likes }} Likes - 
+                        {% if user in post.likes.all %}
+                        <a href="{% url 'post_like' post.id %}">Unlike</a>
+                      {% else %}
+                        <a href="{% url 'post_like' post.id %}">Like</a>
+                      {% endif %}
                         <a href="{% url 'post_show' post.id %}">Share</a>
                         {% if request.user.username == profile.user.username %}
                           <a href="{% url 'delete_post' post.id %}">Delete</a>
