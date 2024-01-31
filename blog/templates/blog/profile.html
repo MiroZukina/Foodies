@@ -5,7 +5,7 @@
     <div class="container text-center">
       <h1>{{ profile.user.username }}'s Profile</h1>
       <div class="row">
-        <div class="col-5">
+        <div class="col-lg-5 col-md-12 order-lg-1">
           <br/>
           {% if posts %}
             {% for post in posts %}
@@ -33,10 +33,10 @@
                         ({{ post.created_at }}) By @{{ post.user.username }}
                         - {{ post.number_of_likes }} Likes - 
                         {% if user in post.likes.all %}
-                        <a href="{% url 'post_like' post.id %}">Unlike</a>
-                      {% else %}
-                        <a href="{% url 'post_like' post.id %}">Like</a>
-                      {% endif %}
+                      <a href="{% url 'post_like' post.id %}">Unlike</a>
+                    {% else %}
+                      <a href="{% url 'post_like' post.id %}">Like</a>
+                    {% endif %}
                         <a href="{% url 'post_show' post.id %}">Share</a>
                         {% if request.user.username == profile.user.username %}
                           <a href="{% url 'delete_post' post.id %}">Delete</a>
