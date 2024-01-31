@@ -22,11 +22,11 @@
                              width="50" height="50" class="rounded-circle" alt="Profile image">
                       {% endif %}<br/>
                     </div>
-                    {% if post.post_image %}
-                      <img src="{{ post.post_image_url }}" 
-                           width="50" height="50" class="img-fluid"
-                           alt="{{ post.post_image_url }}'s post image">
-                    {% endif %}
+                    {% if post.post_image_url %}
+                <img src="{{ post.post_image_url }}" 
+                width="50" height="50" class="img-fluid"
+                alt="{{ post.post_image_url }}'s post image">
+                {% endif %}
                     <div class="col-11">
                       {{ post.body }}<br/>
                       <small class="text-muted">
