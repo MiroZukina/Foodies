@@ -62,6 +62,10 @@ class SignUpForm(UserCreationForm):
         model = User 
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
+    def clean_username(self):
+        # Override clean_username to exclude the unique check during updates
+        return self.cleaned_data['username']
+
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs) 
 
