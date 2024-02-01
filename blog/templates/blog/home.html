@@ -37,7 +37,9 @@
                   {% endif %}
                   {{ post.body }}<br/>
                   <small class="text-muted">
-                    ({{ post.created_at }}) By @{{ post.user.username }}
+                    ({{ post.created_at }}) By<p class="card-text">
+                      <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>
+                  </p>
                     - {{ post.number_of_likes }} Likes - 
                     {% if user in post.likes.all %}
                       <a href="{% url 'post_like' post.id %}">Unlike</a>
