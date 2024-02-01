@@ -158,6 +158,7 @@ def update_user(request):
           profile_form.save()
           login(request, current_user)
           messages.success(request, f'Your Profile Has Been Updated!')
+          return redirect('blog-home')
        return render(request, "blog/update_user.html", {'user_form': user_form,'profile_form':profile_form})
     else:
         messages.success(request, f'You Must Be logged In To View That Page...')
