@@ -35,7 +35,7 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 #ALLOWED_HOSTS  = []
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', os.environ.get('RENDER_HOSTNAME', '')]
+
 
 
 # Application definition
@@ -92,21 +92,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 database_url = os.environ.get("DATABESE_URL")
 
 DATABASES["defaul"] = dj_database_url.parse(database_url)
 
 ''''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'database_yoln',
-        'USER': 'database_yoln_user',
-        'PASSWORD': 'Hu4bdyDQVDQHcM5dL00nabu5Aq2dWTrO',
-        'HOST': 'dpg-cme5e2mn7f5s739f50og-a',
-        'PORT': '5432',
-    }
-}'''
+'''
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -142,6 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
