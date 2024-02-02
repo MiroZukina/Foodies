@@ -13,6 +13,7 @@
                 <div class="container">
                   <div class="row">
                     <div class="col-1">
+                     
                       {% if post.user.profile.profile_image_url %}
                         <img src="{{ post.user.profile.profile_image_url }}" 
                              width="50" height="50" class="rounded-circle" 
@@ -47,7 +48,7 @@
                       {% for comment in post.comments.all %}
                         <div class="alert alert-light" role="alert">
                           <small class="text-muted">
-                            ({{ comment.created_at }}) By @{{ comment.user.username }}: {{ comment.text }}
+                            ({{ comment.created_at }}) By <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
                           </small>
                         </div>
                       {% endfor %}

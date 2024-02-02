@@ -55,7 +55,7 @@
                   {% for comment in post.comments.all %}
                     <div class="alert alert-light" role="alert">
                       <small class="text-muted">
-                        ({{ comment.created_at }}) By<a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
+                        ({{ comment.created_at }}) By <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
                       </small>
                     </div>
                   {% endfor %}
