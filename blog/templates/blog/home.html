@@ -39,7 +39,6 @@
                   <small class="text-muted">
                     ({{ post.created_at }}) By<p class="card-text">
                       <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>
-                  </p>
                     - {{ post.number_of_likes }} Likes - 
                     {% if user in post.likes.all %}
                       <a href="{% url 'post_like' post.id %}">Unlike</a>
@@ -47,12 +46,16 @@
                       <a href="{% url 'post_like' post.id %}">Like</a>
                     {% endif %}
                     <a href="{% url 'post_show' post.id %}">Share</a>
+                    {% if request.user.username == post.user.username %}
+                        <a href="{% url 'delete_post' post.id %}">Delete</a>
+                        <a href="{% url 'edit_post' post.id %}">Edit</a>
+                      {% endif %}
                   </small>
                   <h2>Comments</h2>
                   {% for comment in post.comments.all %}
                     <div class="alert alert-light" role="alert">
                       <small class="text-muted">
-                        ({{ comment.created_at }}) By @{{ comment.user.username }}: {{ comment.text }}
+                        ({{ comment.created_at }}) By<a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
                       </small>
                     </div>
                   {% endfor %}
