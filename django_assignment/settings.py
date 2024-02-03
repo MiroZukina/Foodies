@@ -26,17 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY ='django-insecure-_mx_z%wr0r20q=gi^upogu_=s#okwigi+a=g)z8+!yoooy+gw%'
+#SECRET_KEY ='django-insecure-_mx_z%wr0r20q=gi^upogu_=s#okwigi+a=g)z8+!yoooy+gw%'
 
-#SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+#DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS  = []
+#ALLOWED_HOSTS  = []
 
-#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 
@@ -97,13 +97,13 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 database_url = os.environ.get("DATABESE_URL")
 
 DATABASES["defaul"] = dj_database_url.parse(database_url)
 
 
-'''
+''''''
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
