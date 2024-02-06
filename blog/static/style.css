@@ -4,14 +4,15 @@
     justify-content: space-between;
     align-items: center;
     background-color: #343a40; 
-    color: rgba(rgba(8, 0, 255, 0.768));
+    color: rgba(8, 0, 255, 0.768);
     padding: 15px 30px;
 }
 
 .logo {
     font-size: 1.5rem;
-    color: rgba(rgba(66, 62, 196, 0.768));
+    color:rgba(8, 0, 255, 0.768);
 }
+
 
 .toggle-button {
     display: none;
@@ -22,7 +23,7 @@
     display: block;
     width: 25px;
     height: 3px;
-    background-color:rgba(rgba(8, 0, 255, 0.768));
+    background-color:rgba(8, 0, 255, 0.768);
     margin: 5px 0;
 }
 
@@ -44,7 +45,7 @@
 
 .nav-link {
     text-decoration: none;
-    color: rgba(rgba(8, 0, 255, 0.768));
+    color: rgba(8, 0, 255, 0.768);
     font-weight: bold;
     font-size: 16px;
 }
@@ -70,7 +71,7 @@
     clear: both;
     font-weight: normal;
     line-height: 1.5;
-    color: rgba(rgba(8, 0, 255, 0.768)); 
+    color:rgba(8, 0, 255, 0.768);
 }
 
 /* Media Query for Responsive Design */
@@ -95,7 +96,7 @@
     }
 
     .bar {
-        background-color: white;
+        background-color:rgba(8, 0, 255, 0.768);
     }
     
     .nav-ul {
@@ -128,7 +129,7 @@
 /* Footer Styles */
 .footer {
     background-color: #343a40; 
-    color: rgba(rgba(8, 0, 255, 0.768)); 
+    color:rgba(8, 0, 255, 0.768);
     padding: 20px;
     text-align: center;
 }
@@ -148,7 +149,7 @@
 
 .footer-iconTop a {
     text-decoration: none;
-    color: rgba(rgba(8, 0, 255, 0.768));
+    color: rgba(8, 0, 255, 0.768);
 }
 
 /* Add hover effect to the icon */
