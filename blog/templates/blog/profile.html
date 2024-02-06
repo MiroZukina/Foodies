@@ -12,8 +12,7 @@
               <div class="alert alert-info" role="alert">
                 <div class="container">
                   <div class="row">
-                    <div class="col-1">
-                     
+                    <div class="col-12">
                       {% if post.user.profile.profile_image_url %}
                         <img src="{{ post.user.profile.profile_image_url }}" 
                              width="50" height="50" class="rounded-circle" 
@@ -22,41 +21,40 @@
                         <img src="{% static 'images/default.jpg' %}"  
                              width="50" height="50" class="rounded-circle" alt="Profile image">
                       {% endif %}<br/>
-                    </div>
-                    {% if post.post_image_url %}
-                <img src="{{ post.post_image_url }}" 
-                width="50" height="50" class="img-fluid"
-                alt="{{ post.post_image_url }}'s post image">
-                {% endif %}
-                    <div class="col-11">
-                      {{ post.body }}<br/>
-                      <small class="text-muted">
-                        ({{ post.created_at }}) By @{{ post.user.username }}
-                        - {{ post.number_of_likes }} Likes - 
-                        {% if user in post.likes.all %}
-                      <a href="{% url 'post_like' post.id %}">Unlike</a>
-                    {% else %}
-                      <a href="{% url 'post_like' post.id %}">Like</a>
-                    {% endif %}
-                        <a href="{% url 'post_show' post.id %}">Share</a>
-                        {% if request.user.username == profile.user.username %}
-                          <a href="{% url 'delete_post' post.id %}">Delete</a>
-                          <a href="{% url 'edit_post' post.id %}">Edit</a>
-                        {% endif %}
-                      </small>
-                      <h2>Comments</h2>
-                      {% for comment in post.comments.all %}
-                        <div class="alert alert-light" role="alert">
-                          <small class="text-muted">
-                            ({{ comment.created_at }}) By <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
-                          </small>
-                        </div>
-                      {% endfor %}
-                      <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {{ comment_form.as_p }}
-                        <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                      </form>
+                      {% if post.post_image_url %}
+                        <img src="{{ post.post_image_url }}" 
+                             width="100%" class="img-fluid"
+                             alt="{{ post.post_image_url }}'s post image">
+                      {% endif %}
+                      <div>
+                        {{ post.body }}<br/>
+                        <small class="text-muted">
+                          ({{ post.created_at }}) By @{{ post.user.username }}
+                          - {{ post.number_of_likes }} Likes - 
+                          {% if user in post.likes.all %}
+                            <a href="{% url 'post_like' post.id %}">Unlike</a>
+                          {% else %}
+                            <a href="{% url 'post_like' post.id %}">Like</a>
+                          {% endif %}
+                          <a href="{% url 'post_show' post.id %}">Share</a>
+                          {% if request.user.username == profile.user.username %}
+                            <a href="{% url 'delete_post' post.id %}">Delete</a>
+                            <a href="{% url 'edit_post' post.id %}">Edit</a>
+                          {% endif %}
+                        </small>
+                        <h2>Comments</h2>
+                        {% for comment in post.comments.all %}
+                          <div class="alert alert-light" role="alert">
+                            <small class="text-muted">
+                            </small>
+                          </div>
+                        {% endfor %}
+                        <form method="POST" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          {{ comment_form.as_p }}
+                          <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -64,12 +62,13 @@
             {% endfor %}
           {% endif %}
         </div>
-        <div class="col-4"><br/>
+        <div class="col-lg-4 col-md-12 order-lg-2">
+          <br/>
           {% if profile.profile_image_url %}
-          <img src="{{ profile.profile_image_url }}" 
-               width="100" height="100" class="rounded-circle" 
-               alt="{{ profile.user.username }}">
-      {% endif %}
+            <img src="{{ profile.profile_image_url }}" 
+                 width="100" height="100" class="rounded-circle" 
+                 alt="{{ profile.user.username }}">
+          {% endif %}
           <br/><br/>
           {% if profile.homepage_link %}
             <a href="{{ profile.homepage_link }}" target="new">Home Page</a>
