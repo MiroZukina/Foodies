@@ -5,63 +5,66 @@
     <div class="container text-center">
       <h1>{{ profile.user.username }}'s Profile</h1>
       <div class="row">
-        <div class="col-lg-5 col-md-12 order-lg-1">
           <br/>
           {% if posts %}
+       <div class="col-lg-5 col-md-12 order-lg-1">
             {% for post in posts %}
-              <div class="alert alert-info" role="alert">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-12">
-                      {% if post.user.profile.profile_image_url %}
-                        <img src="{{ post.user.profile.profile_image_url }}" 
-                             width="50" height="50" class="rounded-circle" 
-                             alt="{{ post.user.username }}'s profile image">
+            <div class="alert alert-info" role="alert">
+              <div class="container">
+                <div class="row">
+                  <div class="col-7 col-md-2">
+                    {% if post.user.profile.profile_image_url %}
+                      <img src="{{ post.user.profile.profile_image_url }}" 
+                           width="50" height="50" class="rounded-circle img-fluid" 
+                           alt="{{ post.user.username }}'s profile image">
+                    {% else %}
+                      <img src="{% static 'images/default.jpg' %}"  
+                           width="50" height="50" class="rounded-circle img-fluid" alt="Profile image">
+                    {% endif %}
+                  </div>
+                  <div class="col-8 col-md-10">
+                    {% if post.post_image_url %}
+                      <img src="{{ post.post_image_url }}" 
+                           class="img-fluid" alt="{{ post.post_image_url }}'s post image">
+                    {% endif %}
+                    {{ post.body }}<br/>
+                    <small class="text-muted">
+                      ({{ post.created_at }}) By<p class="card-text">
+                        <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>
+                      - {{ post.number_of_likes }} Likes - 
+                      {% if user in post.likes.all %}
+                        <a href="{% url 'post_like' post.id %}">Unlike</a>
                       {% else %}
-                        <img src="{% static 'images/default.jpg' %}"  
-                             width="50" height="50" class="rounded-circle" alt="Profile image">
-                      {% endif %}<br/>
-                      {% if post.post_image_url %}
-                        <img src="{{ post.post_image_url }}" 
-                             width="100%" class="img-fluid"
-                             alt="{{ post.post_image_url }}'s post image">
+                        <a href="{% url 'post_like' post.id %}">Like</a>
                       {% endif %}
-                      <div>
-                        {{ post.body }}<br/>
+                      <a href="{% url 'post_show' post.id %}">Share</a>
+                      {% if request.user.username == post.user.username %}
+                          <a href="{% url 'delete_post' post.id %}">Delete</a>
+                          <a href="{% url 'edit_post' post.id %}">Edit</a>
+                        {% endif %}
+                    </small>
+                    <h2>Comments</h2>
+                    {% for comment in post.comments.all %}
+                      <div class="alert alert-light" role="alert">
                         <small class="text-muted">
-                          ({{ post.created_at }}) By @{{ post.user.username }}
-                          - {{ post.number_of_likes }} Likes - 
-                          {% if user in post.likes.all %}
-                            <a href="{% url 'post_like' post.id %}">Unlike</a>
-                          {% else %}
-                            <a href="{% url 'post_like' post.id %}">Like</a>
-                          {% endif %}
-                          <a href="{% url 'post_show' post.id %}">Share</a>
-                          {% if request.user.username == profile.user.username %}
-                            <a href="{% url 'delete_post' post.id %}">Delete</a>
-                            <a href="{% url 'edit_post' post.id %}">Edit</a>
-                          {% endif %}
+                          ({{ comment.created_at }}) By <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
                         </small>
-                        <h2>Comments</h2>
-                        {% for comment in post.comments.all %}
-                          <div class="alert alert-light" role="alert">
-                            <small class="text-muted">
-                            </small>
-                          </div>
-                        {% endfor %}
-                        <form method="POST" enctype="multipart/form-data">
-                          {% csrf_token %}
-                          {{ comment_form.as_p }}
-                          <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                        </form>
                       </div>
-                    </div>
+                    {% endfor %}
+                    <form method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      {{ comment_form.as_p }}
+                      <button type="submit" class="btn btn-secondary">Submit Comment</button>
+                    </form>
                   </div>
                 </div>
               </div>
+            </div>
             {% endfor %}
           {% endif %}
-        </div>
+          </div>
+          
+        
         <div class="col-lg-4 col-md-12 order-lg-2">
           <br/>
           {% if profile.profile_image_url %}
@@ -136,7 +139,7 @@
           {% if request.user.id == profile.user.id %}
             <a href="{% url 'update_user' %}" class="btn btn-outline-info">Update Profile</a>
           {% endif %}
-        </div> 
+         </div> 
       </div>
     </div>
   {% endif %}
