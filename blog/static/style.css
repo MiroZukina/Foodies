@@ -6,6 +6,9 @@
     background-color:rgb(32, 43, 89); 
     color:white;
     padding: 15px 30px;
+    top: 0;
+    left: 0;
+    z-index: 5000; 
 }
 
 .logo {
@@ -57,15 +60,22 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-    background-color:rgb(32, 43, 89); ; 
+    color: white;
+    background-color: rgb(32, 43, 89); /* Remove extra semicolon */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
     background-color: rgb(32, 168, 161);
-
 }
+
+.dropdown-toggle {
+    color: white;
+    text-decoration: none;
+}
+
+
 
 .dropdown-item {
     padding: 10px 15px;
@@ -73,8 +83,9 @@
     clear: both;
     font-weight: normal;
     line-height: 1.5;
-    color:white;
+    color: white;
 }
+
 
 /* Media Query for Responsive Design */
 @media screen and (max-width: 768px) {
@@ -163,6 +174,3 @@
 .footer-iconTop a i {
     margin: 0 5px;
 }
-
-
-
