@@ -3,14 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #343a40; 
-    color: rgba(8, 0, 255, 0.768);
+    background-color:rgb(32, 43, 89); 
+    color:white;
     padding: 15px 30px;
 }
 
 .logo {
     font-size: 1.5rem;
-    color:rgba(8, 0, 255, 0.768);
+    color:white;
 }
 
 
@@ -23,7 +23,7 @@
     display: block;
     width: 25px;
     height: 3px;
-    background-color:rgba(8, 0, 255, 0.768);
+    background-color:white;
     margin: 5px 0;
 }
 
@@ -45,7 +45,7 @@
 
 .nav-link {
     text-decoration: none;
-    color: rgba(8, 0, 255, 0.768);
+    color: white;
     font-weight: bold;
     font-size: 16px;
 }
@@ -57,12 +57,14 @@
 .dropdown-menu {
     display: none;
     position: absolute;
-    background-color: #343a40; 
+    background-color:rgb(32, 43, 89); ; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
+    background-color: rgb(32, 168, 161);
+
 }
 
 .dropdown-item {
@@ -71,7 +73,7 @@
     clear: both;
     font-weight: normal;
     line-height: 1.5;
-    color:rgba(8, 0, 255, 0.768);
+    color:white;
 }
 
 /* Media Query for Responsive Design */
@@ -96,7 +98,7 @@
     }
 
     .bar {
-        background-color:rgba(8, 0, 255, 0.768);
+        background-color:white;
     }
     
     .nav-ul {
@@ -128,8 +130,8 @@
 
 /* Footer Styles */
 .footer {
-    background-color: #343a40; 
-    color:rgba(8, 0, 255, 0.768);
+    background-color: rgb(32, 43, 89); 
+    color:white;
     padding: 20px;
     text-align: center;
 }
@@ -149,7 +151,7 @@
 
 .footer-iconTop a {
     text-decoration: none;
-    color: rgba(8, 0, 255, 0.768);
+    color: white;
 }
 
 /* Add hover effect to the icon */
