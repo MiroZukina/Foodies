@@ -32,11 +32,9 @@
       {% for post in posts %}
       <article class="post-card">
 
-        {% if post.post_image_url %}
         <div class="post-card__image">
-          <img src="{{ post.post_image_url }}" alt="Post image">
+          <img src="{{ post.post_image_url|default:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800' }}" alt="Post image">
         </div>
-        {% endif %}
 
         <div class="post-card__body">
           <div class="post-card__meta">
