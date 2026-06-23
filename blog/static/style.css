@@ -5,8 +5,8 @@
 :root {
   --cream:     #FFF8F0;
   --cream-dark:#F5EDE0;
-  --terracotta:#E05C2A;
-  --terra-dark:#C04A1E;
+  --terracotta:#2D6A4F;
+  --terra-dark:#1B4332;
   --sage:      #4A7C59;
   --sage-light:#6B9E79;
   --brown:     #2D1B0E;
@@ -421,8 +421,8 @@ img { max-width: 100%; height: auto; display: block; }
 .btn-outline-info:hover { background: var(--sage); color: white; }
 .btn-outline-success { background: transparent; border: 1px solid var(--sage); color: var(--sage); border-radius: 20px; }
 .btn-outline-success:hover { background: var(--sage); color: white; text-decoration: none; }
-.btn-outline-danger  { background: transparent; border: 1px solid #E05C2A; color: #E05C2A; border-radius: 20px; }
-.btn-outline-danger:hover { background: #E05C2A; color: white; text-decoration: none; }
+.btn-outline-danger  { background: transparent; border: 1px solid #2D6A4F; color: #2D6A4F; border-radius: 20px; }
+.btn-outline-danger:hover { background: #2D6A4F; color: white; text-decoration: none; }
 
 /* ============================================================
    COMMENTS
