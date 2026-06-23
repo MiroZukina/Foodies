@@ -33,7 +33,15 @@
       <article class="post-card">
 
         <div class="post-card__image">
-          <img src="{{ post.post_image_url|default:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800' }}" alt="Post image">
+          {% if post.post_image %}
+            {% if '.mp4' in post.post_image.name or '.mov' in post.post_image.name or '.webm' in post.post_image.name %}
+              <video src="{{ post.post_image.url }}" controls style="width:100%;"></video>
+            {% else %}
+              <img src="{{ post.post_image.url }}" alt="Post image">
+            {% endif %}
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" alt="Post image">
+          {% endif %}
         </div>
 
         <div class="post-card__body">
@@ -114,7 +122,7 @@
     <aside class="sidebar">
       {% if user.is_authenticated %}
       <div class="sidebar-card">
-        <div class="sidebar-card__header">Share a Recipe</div>
+        <div class="sidebar-card__header">Share a Food Moment</div>
         <div class="sidebar-card__body">
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -128,7 +136,7 @@
               </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">
-              Post Recipe
+              Share Post
             </button>
           </form>
         </div>

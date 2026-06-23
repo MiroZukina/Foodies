@@ -216,7 +216,7 @@ def edit_post(request, pk):
     if request.user.is_authenticated:
         post = get_object_or_404(Post, id=pk)
         if request.user.username == post.user.username:
-            form = PostForm(request.POST or None, instance=post)
+            form = PostForm(request.POST or None, request.FILES or None, instance=post)
             if request.method == "POST":
                 if form.is_valid():
                    post = form.save(commit=False)

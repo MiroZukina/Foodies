@@ -22,7 +22,7 @@ class PostForm(forms.ModelForm):
         required=True,
         widget=forms.Textarea(
             attrs={
-                "placeholder": "Enter Your Post",
+                "placeholder": "Share a recipe, restaurant visit, food photo...",
                 "class": "form-control",
                 "rows": 3,
             }
@@ -30,11 +30,18 @@ class PostForm(forms.ModelForm):
         label="",
     )
 
-    post_image_url = forms.URLField(label="Post Image URL", required=False, widget=forms.TextInput(attrs={'placeholder': 'Enter image URL'}))
+    post_image = forms.FileField(
+        label="Photo / Video",
+        required=False,
+        widget=forms.FileInput(attrs={
+            'accept': 'image/*,video/*',
+            'class': 'form-control',
+        })
+    )
 
     class Meta:
         model = Post
-        fields = ("body", "post_image_url")
+        fields = ("body", "post_image")
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(
