@@ -1,75 +1,158 @@
 {% extends "blog/base.html" %}
 {% load static %}
 
-{% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-4 col-md-12 order-lg-2">
-        <br/><br/><br/>
-        {% if form %}
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-secondary">Submit</button>
-          </form>
-        {% endif %}
-      </div>
+{% block title %}Foodies{% endblock %}
 
-      <div class="col-lg-5 col-md-12 order-lg-1">
-        {% for post in posts %}
-          <div class="alert alert-info" role="alert">
-            <div class="container">
-              <div class="row">
-                <div class="col-7 col-md-2">
-                  {% if post.user.profile.profile_image_url %}
-                    <img src="{{ post.user.profile.profile_image_url }}" 
-                         width="50" height="50" class="rounded-circle img-fluid" 
-                         alt="{{ post.user.username }}'s profile image">
-                  {% else %}
-                    <img src="{% static 'images/default.jpg' %}"  
-                         width="50" height="50" class="rounded-circle img-fluid" alt="Profile image">
-                  {% endif %}
-                </div>
-                <div class="col-8 col-md-10">
-                  {% if post.post_image_url %}
-                    <img src="{{ post.post_image_url }}" 
-                         class="img-fluid" alt="{{ post.post_image_url }}'s post image">
-                  {% endif %}
-                  {{ post.body }}<br/>
-                  <small class="text-muted">
-                    ({{ post.created_at }}) By<p class="card-text">
-                      <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>
-                    - {{ post.number_of_likes }} Likes - 
-                    {% if user in post.likes.all %}
-                      <a href="{% url 'post_like' post.id %}">Unlike</a>
-                    {% else %}
-                      <a href="{% url 'post_like' post.id %}">Like</a>
-                    {% endif %}
-                    <a href="{% url 'post_show' post.id %}">Share</a>
-                    {% if request.user.username == post.user.username %}
-                        <a href="{% url 'delete_post' post.id %}">Delete</a>
-                        <a href="{% url 'edit_post' post.id %}">Edit</a>
-                      {% endif %}
-                  </small>
-                  <h2>Comments</h2>
-                  {% for comment in post.comments.all %}
-                    <div class="alert alert-light" role="alert">
-                      <small class="text-muted">
-                        ({{ comment.created_at }}) By <a href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>: {{ comment.text }}
-                      </small>
-                    </div>
-                  {% endfor %}
-                  <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    <button type="submit" class="btn btn-secondary">Submit Comment</button>
-                  </form>
-                </div>
-              </div>
+{% block content %}
+<div class="hero-banner">
+  <div class="hero-banner__inner">
+    <h1 class="hero-banner__title">Join the community</h1>
+    <p class="hero-banner__sub">Share recipes, snap pictures at restaurants, and discover new food.</p>
+    {% if not user.is_authenticated %}
+    <div class="hero-banner__actions">
+      <a href="{% url 'register' %}" class="btn btn-primary">Sign Up Free</a>
+      <a href="{% url 'login' %}" class="btn btn-ghost">Log In</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="page-container">
+  <div class="feed-grid">
+
+    <!-- FEED -->
+    <main>
+      {% if not posts %}
+        <div class="post-card" style="text-align:center;padding:48px 24px;">
+          <p style="font-size:2.5rem;margin:0;">🍽</p>
+          <p style="color:var(--muted);margin-top:8px;">No posts yet. Be the first to share a recipe!</p>
+        </div>
+      {% endif %}
+
+      {% for post in posts %}
+      <article class="post-card">
+
+        {% if post.post_image_url %}
+        <div class="post-card__image">
+          <img src="{{ post.post_image_url }}" alt="Post image">
+        </div>
+        {% endif %}
+
+        <div class="post-card__body">
+          <div class="post-card__meta">
+            {% if post.user.profile.profile_image_url %}
+              <img src="{{ post.user.profile.profile_image_url }}"
+                   class="post-card__avatar" alt="{{ post.user.username }}">
+            {% else %}
+              <img src="{% static 'images/default.jpg' %}"
+                   class="post-card__avatar" alt="Avatar">
+            {% endif %}
+            <div>
+              <a class="post-card__author" href="{% url 'profile' post.user.id %}">
+                @{{ post.user.username|lower }}
+              </a>
+              <div class="post-card__date">{{ post.created_at|date:"N j, Y · g:i a" }}</div>
             </div>
           </div>
-        {% endfor %}
+          <p class="post-card__text">{{ post.body }}</p>
+        </div>
+
+        <div class="post-card__actions">
+          {% if user in post.likes.all %}
+            <a href="{% url 'post_like' post.id %}" class="btn btn-primary" style="gap:4px;">
+              <i class='bx bxs-heart'></i> {{ post.number_of_likes }}
+            </a>
+          {% else %}
+            <a href="{% url 'post_like' post.id %}" class="btn btn-ghost" style="gap:4px;">
+              <i class='bx bx-heart'></i> {{ post.number_of_likes }}
+            </a>
+          {% endif %}
+          <a href="{% url 'post_show' post.id %}" class="btn btn-ghost">
+            <i class='bx bx-share-alt'></i> Share
+          </a>
+          {% if request.user.username == post.user.username %}
+            <a href="{% url 'edit_post' post.id %}" class="btn btn-ghost">
+              <i class='bx bx-edit'></i> Edit
+            </a>
+            <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">
+              <i class='bx bx-trash'></i>
+            </a>
+          {% endif %}
+        </div>
+
+        {% if post.comments.all %}
+        <div class="comments-section">
+          <h3>Comments</h3>
+          {% for comment in post.comments.all %}
+          <div class="comment-item">
+            <div>
+              <a class="comment-item__author" href="{% url 'profile' comment.user.id %}">
+                @{{ comment.user.username|lower }}
+              </a>
+              <div class="comment-item__date">{{ comment.created_at|date:"N j, Y" }}</div>
+            </div>
+            <span class="comment-item__text" style="margin-left:8px;">{{ comment.text }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <div class="comment-form">
+          <form method="POST" style="display:flex;gap:8px;width:100%;align-items:flex-end;">
+            {% csrf_token %}
+            <input type="hidden" name="comment_post_id" value="{{ post.id }}">
+            <input type="text" name="text" placeholder="Add a comment…" required>
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+        </div>
+        {% endif %}
+
+      </article>
+      {% endfor %}
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      {% if user.is_authenticated %}
+      <div class="sidebar-card">
+        <div class="sidebar-card__header">Share a Recipe</div>
+        <div class="sidebar-card__body">
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                  <small style="color:#991B1B;">{{ field.errors }}</small>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">
+              Post Recipe
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+      {% else %}
+      <div class="sidebar-card">
+        <div class="sidebar-card__header">Welcome to Foodies 🍽</div>
+        <div class="sidebar-card__body">
+          <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">
+            Join the community to share recipes and discover new food.
+          </p>
+          <a href="{% url 'register' %}" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:8px;">
+            Sign Up Free
+          </a>
+          <a href="{% url 'login' %}" class="btn btn-secondary" style="width:100%;justify-content:center;">
+            Log In
+          </a>
+        </div>
+      </div>
+      {% endif %}
+    </aside>
+
   </div>
+</div>
 {% endblock content %}

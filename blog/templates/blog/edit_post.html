@@ -1,55 +1,65 @@
 {% extends "blog/base.html" %}
 {% load static %}
-
+{% block title %}Edit Post — {% endblock %}
 {% block content %}
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-5 col-md-12 order-lg-1">
-        <br/><br/><br/>
-        <div class="alert alert-info" role="alert">
-          <div class="container">
-            <div class="row">
-              <div class="col-7 col-md-2">
-                {% if post.user.profile.profile_image_url %}
-                  <img src="{{ post.user.profile.profile_image_url }}" 
-                       width="50" height="50" class="rounded-circle img-fluid" 
-                       alt="{{ post.user.username }}'s profile image">
-                {% else %}
-                  <img src="{% static 'images/default.jpg' %}"  
-                       width="50" height="50" class="rounded-circle img-fluid" alt="Profile image">
-                {% endif %}
-              </div>
-              <div class="col-8 col-md-10">
-                {% if post.post_image_url %}
-                  <img src="{{ post.post_image_url }}" 
-                       class="img-fluid" alt="{{ post.post_image_url }}'s post image">
-                {% endif %}
-                {{ post.body }}<br/>
-                <small class="text-muted">
-                  ({{ post.created_at }}) By @{{ post.user.username|lower }}
-                  - {{ post.number_of_likes }} Likes
-                </small>
-                <h2>Comments</h2>
-                {% for comment in post.comments.all %}
-                  <div class="alert alert-light" role="alert">
-                    <small class="text-muted">
-                      ({{ comment.created_at }}) By @{{ comment.user.username|lower }}: {{ comment.text }}
-                    </small>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
-        <br/>
-        {% if form %}
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-secondary mt-3">Submit</button>
-          </form>
+<div class="page-container" style="max-width:680px;">
+
+  <article class="post-card" style="margin-bottom:24px;">
+    {% if post.post_image_url %}
+    <div class="post-card__image">
+      <img src="{{ post.post_image_url }}" alt="Post image">
+    </div>
+    {% endif %}
+    <div class="post-card__body">
+      <div class="post-card__meta">
+        {% if post.user.profile.profile_image_url %}
+          <img src="{{ post.user.profile.profile_image_url }}" class="post-card__avatar" alt="{{ post.user.username }}">
+        {% else %}
+          <img src="{% static 'images/default.jpg' %}" class="post-card__avatar" alt="Avatar">
         {% endif %}
+        <div>
+          <a class="post-card__author" href="{% url 'profile' post.user.id %}">@{{ post.user.username|lower }}</a>
+          <div class="post-card__date">{{ post.created_at|date:"N j, Y · g:i a" }}</div>
+        </div>
       </div>
+      <p class="post-card__text">{{ post.body }}</p>
+    </div>
+    {% if post.comments.all %}
+    <div class="comments-section">
+      <h3>Comments</h3>
+      {% for comment in post.comments.all %}
+      <div class="comment-item">
+        <div>
+          <span class="comment-item__author">@{{ comment.user.username|lower }}</span>
+          <div class="comment-item__date">{{ comment.created_at|date:"N j, Y" }}</div>
+        </div>
+        <span class="comment-item__text" style="margin-left:8px;">{{ comment.text }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </article>
+
+  <div class="sidebar-card">
+    <div class="sidebar-card__header">Edit Post</div>
+    <div class="sidebar-card__body">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <small style="color:#991B1B;">{{ field.errors }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">
+          Save Changes
+        </button>
+      </form>
     </div>
   </div>
+
+</div>
 {% endblock content %}

@@ -1,77 +1,78 @@
 {% load static %}
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <!--  CSS -->
-        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        
-        <title>{% block title %}{% endblock %}  Foodies</title>
-    </head>
-    <body>
-        
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'images/foodies_logo_icon.svg' %}">
+  <title>{% block title %}Foodies{% endblock %}</title>
+</head>
+<body>
 
-        <header class="navbar">
-          <div class="logo">Foodies</div>
-          <a href="#" class="toggle-button">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
+<header class="navbar" id="main-navbar">
+  <a href="{% url 'blog-home' %}" class="logo" style="text-decoration:none;">
+    <img src="{% static 'images/foodies_logo_banner.svg' %}" alt="Foodies" style="height:42px;width:auto;">
+  </a>
+
+  <button class="toggle-button" id="menu-toggle" aria-label="Toggle menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav class="navbar-links" id="navbar-links">
+    <ul class="nav-ul">
+      <li class="nav-li"><a class="nav-link" href="{% url 'blog-home' %}">Home</a></li>
+      <li class="nav-li"><a class="nav-link" href="{% url 'profile_list' %}">People</a></li>
+
+      {% if user.is_authenticated %}
+        <li class="nav-li"><a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a></li>
+        <li class="nav-li"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li class="nav-li"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+        <li class="nav-li">
+          <a class="nav-link btn-primary" href="{% url 'register' %}"
+             style="background:var(--terracotta);color:white;padding:7px 16px;border-radius:20px;">
+            Sign Up
           </a>
-          <nav class="navbar-links">
+        </li>
+      {% endif %}
 
-            <ul class="nav-ul">
-              <li class="nav-li"><a class="nav-link" href="{% url 'blog-home' %}">Home</a></li>
-              <ul class="nav-ul">
-                <li class="nav-li"><a class="nav-link" href="{% url 'profile_list' %}">Profile List</a></li>
-                {% if user.is_authenticated %}
-                <li class="nav-li"><a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a></li>
-                <li class="nav-li"><a class="nav-link"  href="{% url 'logout' %}">Logout</a></li>
-                {% else %}
-                
-                <li class="nav-li" ><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                <li class="nav-li"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                {% endif %}
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Search
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li class="nav-li"><a class="dropdown-item" href="{% url 'search' %}">Search Post</a></li>
-                    <li class="nav-li" ><a class="dropdown-item" href="{% url 'search_user' %}">Search Users</a></li>
-                  </ul>
-                </li>
-              </ul>
-          </nav>
-        </header>
+      <li class="nav-item dropdown nav-li">
+        <a class="nav-link dropdown-toggle" href="#" role="button">
+          <i class='bx bx-search-alt-2'></i> Search
+        </a>
+        <ul class="dropdown-menu" style="list-style:none;padding:0;">
+          <li><a class="dropdown-item" href="{% url 'search' %}">Search Posts</a></li>
+          <li><a class="dropdown-item" href="{% url 'search_user' %}">Search Users</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-        <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-          
-        </div>
-        
-        {% block content %}{% endblock %}
-        <footer class="footer">
-          <div class="footer-text">
-              <p>Copyright &copy 2023 </p>
-          </div>
-          <div class="footer-iconTop">
-              <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
-          </div>
-      </footer>
-    <!--  Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    </body>
-    </html> 
+{% if messages %}
+  <div class="messages-wrap">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+  <div class="footer-text"><p>&copy; 2024 Foodies</p></div>
+  <div class="footer-iconTop">
+    <a href="#" title="Back to top"><i class='bx bx-up-arrow-alt'></i></a>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

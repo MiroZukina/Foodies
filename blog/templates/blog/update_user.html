@@ -1,25 +1,26 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
+{% block title %}Edit Profile — {% endblock %}
 {% block content %}
-   <div class="col-md-6 offset-md-3">
-    <form method="POST" enctype="multipart/form-data">  
-        {% csrf_token %}
-        
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Update User</legend>
-                {{ user_form|crispy }} 
-                <br/>
-                {{ profile_form|crispy}}
-        </fieldset>
-        
-            <button class="btn btn-outline-info" type="submit">Update User</button>
-      
+<div class="auth-wrapper" style="align-items:flex-start;padding-top:40px;">
+  <div class="auth-card" style="max-width:560px;">
+    <h1>Edit Profile</h1>
+    <p class="subtitle">Update your account and profile information</p>
 
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4" style="font-size:1rem;color:var(--muted);">Account Info</legend>
+        {{ user_form|crispy }}
+      </fieldset>
+      <fieldset class="form-group" style="margin-top:20px;">
+        <legend class="border-bottom mb-4" style="font-size:1rem;color:var(--muted);">Profile Info</legend>
+        {{ profile_form|crispy }}
+      </fieldset>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">
+        Save Changes
+      </button>
     </form>
-    
-   </div>
-
-  
-
-
+  </div>
+</div>
 {% endblock content %}

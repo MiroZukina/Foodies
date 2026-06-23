@@ -1,34 +1,31 @@
 {% extends "blog/base.html" %}
-{% load crispy_forms_tags %}
+{% block title %}Login — {% endblock %}
 {% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1>Welcome back</h1>
+    <p class="subtitle">Sign in to your Foodies account</p>
 
-  <h2></h2>
-
-  <div class="col-md-6 offset-md-3">
-    <h1>Login</h1><br/>
     <form method="POST" action="{% url 'login' %}">
-       {% csrf_token %}
-       <div class="mb-3">
-         <input type="text" class="form-control" name="username" placeholder="Enter Your Username">
-       </div>
-       <div class="mb-3">
-         <input type="password" class="form-control" name="password"  placeholder="Enter Your Password ">
-       </div>
-       <button type="submit" class="btn btn-primary">Submit</button>
-     </form>
-     <div class="border-top pt-3">
-     <small class="text-muted ml-2">
-      <a href="{% url 'password_reset' %}">Forgot Password?</a>
-    </small>
-    </div>
-     <div class="border-top pt-3">
-          <small class="text-muted">
-            Create an account? <a class="ml-2" href="{% url 'register' %}">Sign In</a>
-          </small>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_username">Username</label>
+        <input type="text" id="id_username" class="form-control" name="username" placeholder="your_username" autocomplete="username">
       </div>
-   </div>
-  
+      <div class="form-group">
+        <label for="id_password">Password</label>
+        <input type="password" id="id_password" class="form-control" name="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">
+        Sign In
+      </button>
+    </form>
 
-
-
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">
+      <a href="{% url 'password_reset' %}">Forgot password?</a>
+      &nbsp;·&nbsp;
+      New here? <a href="{% url 'register' %}">Create an account</a>
+    </div>
+  </div>
+</div>
 {% endblock content %}

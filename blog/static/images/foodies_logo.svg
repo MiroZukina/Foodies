@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 220" width="300" height="220">
+  <!-- Background -->
+  <rect x="0" y="0" width="300" height="220" rx="24" fill="#E05C2A"/>
+
+  <!-- Leaf cluster -->
+  <ellipse cx="150" cy="75" rx="35" ry="24" fill="#F08050"/>
+  <ellipse cx="128" cy="88" rx="22" ry="16" fill="#F4A070"/>
+  <ellipse cx="172" cy="88" rx="22" ry="16" fill="#F4A070"/>
+  <ellipse cx="150" cy="85" rx="14" ry="10" fill="#F8C0A0"/>
+  <rect x="147" y="98" width="7" height="20" rx="3" fill="#B03010"/>
+
+  <!-- Main text -->
+  <text x="150" y="150" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="white" text-anchor="middle">Foodies</text>
+
+  <!-- Tagline -->
+  <text x="150" y="178" font-family="Arial, sans-serif" font-size="14" fill="#FDE8D8" text-anchor="middle">eat. share. love.</text>
+</svg>

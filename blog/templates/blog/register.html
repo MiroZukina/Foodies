@@ -1,28 +1,25 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
+{% block title %}Register — {% endblock %}
 {% block content %}
-   <div class="col-md-6 offset-md-3">
-    <form method="POST">  
-        {% csrf_token %}
-        
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Join Here</legend>
-                {{ form|crispy }} 
-        </fieldset>
-        
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
-      
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h1>Join Foodies</h1>
+    <p class="subtitle">Create your free account and start sharing recipes</p>
 
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        {{ form|crispy }}
+      </fieldset>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px;">
+        Create Account
+      </button>
     </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already hava an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
-        </small>
+
+    <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">
+      Already have an account? <a href="{% url 'login' %}">Sign in</a>
     </div>
-   </div>
-
-  
-
-  
-
+  </div>
+</div>
 {% endblock content %}

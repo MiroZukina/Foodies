@@ -1,10 +1,8 @@
 from django.contrib import messages
-from .models import Profile, Post, Comment
+from .models import Profile, Post
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import PostForm, ProfilePicForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm
 
@@ -12,32 +10,32 @@ from .forms import PostForm, CommentForm
 # Create your views here.
 
 def home(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            messages.success(request, "Your Post Has Been Posted")
-            return redirect('blog-home')
-    else:
-        form = PostForm()
-
     posts = Post.objects.all().order_by("-created_at")
-    comments = Comment.objects.all().order_by("-created_at")
-    comment_form = CommentForm()
+    form = PostForm()
 
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit=False)
-            new_comment.user = request.user
-            new_comment.post = posts[0]  
-            new_comment.save()
-            messages.success(request, "Your Comment Has Been Posted")
-            return redirect('blog-home')
+    if request.method == "POST":
+        comment_post_id = request.POST.get("comment_post_id")
+        if comment_post_id:
+            if request.user.is_authenticated:
+                post = get_object_or_404(Post, id=comment_post_id)
+                comment_form = CommentForm(request.POST)
+                if comment_form.is_valid():
+                    new_comment = comment_form.save(commit=False)
+                    new_comment.user = request.user
+                    new_comment.post = post
+                    new_comment.save()
+                    messages.success(request, "Comment posted!")
+                return redirect('blog-home')
+        else:
+            form = PostForm(request.POST, request.FILES)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.user = request.user
+                post.save()
+                messages.success(request, "Your post has been shared!")
+                return redirect('blog-home')
 
-    return render(request, 'blog/home.html', {"posts": posts, "form": form, "comments": comments, "comment_form": comment_form})
+    return render(request, 'blog/home.html', {"posts": posts, "form": form})
 
 def profile_list(request):
     if request.user.is_authenticated:
@@ -85,22 +83,25 @@ def profile(request, pk):
         comment_form = CommentForm()
 
         if request.method == "POST":
-            current_user_profile = request.user.profile
             action = request.POST.get('follow')
+            comment_post_id = request.POST.get('comment_post_id')
 
-            if action == "unfollow":
-                current_user_profile.follows.remove(profile)
-            elif action == "follow":
-                current_user_profile.follows.add(profile)
-            current_user_profile.save()
-
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                new_comment = comment_form.save(commit=False)
-                new_comment.user = request.user
-                new_comment.post = posts[0]  
-                new_comment.save()
-                messages.success(request, "Your Comment Has Been Posted")
+            if action in ("follow", "unfollow"):
+                current_user_profile = request.user.profile
+                if action == "unfollow":
+                    current_user_profile.follows.remove(profile)
+                else:
+                    current_user_profile.follows.add(profile)
+                current_user_profile.save()
+            elif comment_post_id:
+                post = get_object_or_404(Post, id=comment_post_id)
+                comment_form = CommentForm(request.POST)
+                if comment_form.is_valid():
+                    new_comment = comment_form.save(commit=False)
+                    new_comment.user = request.user
+                    new_comment.post = post
+                    new_comment.save()
+                    messages.success(request, "Comment posted!")
                 return redirect('profile', pk=pk)
 
         return render(request, "blog/profile.html", {"profile": profile, "posts": posts, "comment_form": comment_form})
