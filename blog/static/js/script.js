@@ -1,8 +1,6 @@
-// navbar
-
-const toggleButton = document.getElementsByClassName('toggle-button')[0];
-const navbarLinks = document.getElementsByClassName('navbar-links')[0];
+const toggleButton = document.getElementById('menu-toggle');
+const navbar = document.getElementById('main-navbar');
 
 toggleButton.addEventListener('click', () => {
-    navbarLinks.classList.toggle('active');
+    navbar.classList.toggle('active');
 });
