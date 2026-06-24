@@ -126,16 +126,14 @@
         <div class="sidebar-card__body">
           <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
-              <div class="form-group">
-                {{ field.label_tag }}
-                {{ field }}
-                {% if field.errors %}
-                  <small style="color:#991B1B;">{{ field.errors }}</small>
-                {% endif %}
-              </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:4px;">
+            <div class="form-group">
+              {{ form.body }}
+              {% if form.body.errors %}<small style="color:#991B1B;">{{ form.body.errors }}</small>{% endif %}
+            </div>
+            <div class="form-group" style="margin-top:10px;">
+              <input type="file" name="post_image" accept="image/*,video/*" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px;">
               Share Post
             </button>
           </form>
