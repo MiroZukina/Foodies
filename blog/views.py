@@ -140,9 +140,10 @@ def register_user(request):
            form.save()
            username = form.cleaned_data['username']
            password = form.cleaned_data['password1']
-           user = authenticate(username=username, password=password )
-           login(request, user)
-           messages.success(request,("You Have Been successfully registred! Welcom!") )
+           user = authenticate(username=username, password=password)
+           if user is not None:
+               login(request, user)
+           messages.success(request, "Account created! Welcome to Foodies.")
            return redirect('blog-home')
         
 
