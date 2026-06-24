@@ -5,16 +5,24 @@ from django.contrib.auth.models import User
 
 
 class ProfilePicForm(forms.ModelForm):
-    profile_image_url = forms.URLField(label="Profile Image URL")
-    profile_bio = forms.CharField(label="Profile Bio", widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Profile Bio' }))
+    profile_image = forms.ImageField(
+        label="Profile Photo",
+        required=False,
+        widget=forms.FileInput(attrs={
+            'accept': 'image/*',
+            'capture': 'user',
+            'class': 'form-control',
+        })
+    )
+    profile_bio = forms.CharField(label="Profile Bio", required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Profile Bio' }))
     homepage_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Website Link'}))
     facebook_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Facebook Link'}))
     instagram_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Instagram Link'}))
     linkedin_link = forms.CharField(label="", required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Linkedin Link'}))
 
-    class Meta: 
+    class Meta:
         model = Profile
-        fields = ('profile_image_url', 'homepage_link', 'profile_bio', 'facebook_link', 'instagram_link', 'linkedin_link')
+        fields = ('profile_image', 'homepage_link', 'profile_bio', 'facebook_link', 'instagram_link', 'linkedin_link')
 
 
 class PostForm(forms.ModelForm):

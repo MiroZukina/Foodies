@@ -20,8 +20,8 @@
 
           <div class="post-card__body">
             <div class="post-card__meta">
-              {% if post.user.profile.profile_image_url %}
-                <img src="{{ post.user.profile.profile_image_url }}"
+              {% if post.user.profile.profile_image %}
+                <img src="{{ post.user.profile.profile_image.url }}"
                      class="post-card__avatar" alt="{{ post.user.username }}">
               {% else %}
                 <img src="{% static 'images/default.jpg' %}"
@@ -101,8 +101,8 @@
     <!-- Sidebar: profile info -->
     <aside class="sidebar">
       <div class="profile-header">
-        {% if profile.profile_image_url %}
-          <img src="{{ profile.profile_image_url }}" class="profile-avatar" alt="{{ profile.user.username }}">
+        {% if profile.profile_image %}
+          <img src="{{ profile.profile_image.url }}" class="profile-avatar" alt="{{ profile.user.username }}">
         {% else %}
           <img src="{% static 'images/default.jpg' %}" class="profile-avatar" alt="Avatar">
         {% endif %}

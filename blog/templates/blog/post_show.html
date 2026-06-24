@@ -4,15 +4,15 @@
 {% block content %}
 <div class="page-container" style="max-width:680px;">
   <article class="post-card">
-    {% if post.post_image_url %}
+    {% if post.post_image %}
     <div class="post-card__image">
-      <img src="{{ post.post_image_url }}" alt="Post image">
+      <img src="{{ post.post_image.url }}" alt="Post image">
     </div>
     {% endif %}
     <div class="post-card__body">
       <div class="post-card__meta">
-        {% if post.user.profile.profile_image_url %}
-          <img src="{{ post.user.profile.profile_image_url }}" class="post-card__avatar" alt="{{ post.user.username }}">
+        {% if post.user.profile.profile_image %}
+          <img src="{{ post.user.profile.profile_image.url }}" class="post-card__avatar" alt="{{ post.user.username }}">
         {% else %}
           <img src="{% static 'images/default.jpg' %}" class="post-card__avatar" alt="Avatar">
         {% endif %}

@@ -46,8 +46,8 @@
 
         <div class="post-card__body">
           <div class="post-card__meta">
-            {% if post.user.profile.profile_image_url %}
-              <img src="{{ post.user.profile.profile_image_url }}"
+            {% if post.user.profile.profile_image %}
+              <img src="{{ post.user.profile.profile_image.url }}"
                    class="post-card__avatar" alt="{{ post.user.username }}">
             {% else %}
               <img src="{% static 'images/default.jpg' %}"

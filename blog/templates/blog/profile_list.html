@@ -10,8 +10,8 @@
     {% for profile in profiles %}
     <a href="{% url 'profile' profile.user.id %}" style="text-decoration:none;color:inherit;">
       <div class="profile-list-card">
-        {% if profile.profile_image_url %}
-          <img src="{{ profile.profile_image_url }}"
+        {% if profile.profile_image %}
+          <img src="{{ profile.profile_image.url }}"
                class="profile-list-card__img" alt="{{ profile.user.username }}">
         {% else %}
           <img src="{% static 'images/default.jpg' %}"

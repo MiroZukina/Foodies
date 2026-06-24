@@ -48,7 +48,7 @@ class Profile(models.Model):
         related_name="followed_by",
         symmetrical=False,
         blank=True)
-    profile_image_url = models.URLField(null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profiles/', null=True, blank=True)
     date_modified = models.DateTimeField(auto_now=True )
     profile_bio = models.TextField(null=True, blank=True, max_length=500)
     facebook_link = models.CharField(null=True, blank=True, max_length=100)

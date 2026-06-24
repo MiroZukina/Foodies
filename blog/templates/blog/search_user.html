@@ -21,8 +21,8 @@
       {% for result in searched %}
       <a href="{% url 'profile' result.profile.user.id %}" style="text-decoration:none;color:inherit;">
         <div class="profile-list-card">
-          {% if result.profile.profile_image_url %}
-            <img src="{{ result.profile.profile_image_url }}"
+          {% if result.profile.profile_image %}
+            <img src="{{ result.profile.profile_image.url }}"
                  class="profile-list-card__img" alt="{{ result.username }}">
           {% else %}
             <img src="{% static 'images/default.jpg' %}"
